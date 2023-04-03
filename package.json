@@ -1,0 +1,18 @@
+{
+  "name": "social_network_api",
+  "version": "1.0.0",
+  "description": "This application demonstrates an API for a social network site that allows end users to share their thoughts, react to friends’ thoughts, and create a friend list.  This application leverages Express.js, Node.js, MongoDB, Mongoose ODM, and JavaScript to provide its functionality.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "dev": "nodemon index",
+    "seed": "node utils/seed"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^6.9.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.9"
+  }
+}
