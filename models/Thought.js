@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 
 // The librarySchema defines the schema of the parent document
-const thoughtSchema = new mongoose.Schema(
+const thoughtSchema = new Schema(
 {
   thoughtText: { type: String, required: true, minLength: 1, maxLength: 280 },
   createdAt: { type: Date, default: Date.now, get: function (createdAt) { return new Date(createdAt).toString() } }, 
@@ -26,7 +26,7 @@ thoughtSchema.virtual('reactionCount').get(function () {
   });
   
 // Uses mongoose.model() to create model
-const Thought = mongoose.model('thought', thoughtSchema);
+const Thought = model('thought', thoughtSchema);
   
 module.exports = Thought;
 
