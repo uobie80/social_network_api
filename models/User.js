@@ -1,11 +1,11 @@
 const {Schema, model} = require('mongoose');
 
-const reMatch = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+const reEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
 
 const userSchema = new mongoose.Schema(
 {
   username: { type: String, required: true, unique: true, trim: true },
-  email: { type: String, required: true, unique: true, match: reMatch }, 
+  email: { type: String, required: true, unique: true, match: reEmail }, 
   thoughts: 
   [
     {
