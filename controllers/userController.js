@@ -1,6 +1,7 @@
 const { ObjectId } = require('mongoose').Types;
 const { User } = require('../models');
 
+/*
 // Aggregate function to get the number of students overall
 const headCount = async () =>
   Student.aggregate()
@@ -22,23 +23,26 @@ const grade = async (studentId) =>
       },
     },
   ]);
+  */
+ 
 
 module.exports = {
-  // Get all students
-  getStudents(req, res) {
-    Student.find()
-      .then(async (students) => {
-        const studentObj = {
+  // Get all users
+  getUsers(req, res) {
+    User.find()
+      .then(async (users) => {
+        const usersObj = {
           students,
-          headCount: await headCount(),
         };
-        return res.json(studentObj);
+        return res.json(usersObj);
       })
       .catch((err) => {
         console.log(err);
         return res.status(500).json(err);
       });
   },
+}
+/*
   // Get a single student
   getSingleStudent(req, res) {
     Student.findOne({ _id: req.params.studentId })
@@ -122,3 +126,4 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
 };
+*/

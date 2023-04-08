@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema(
   [
     {
       type: Schema.Types.ObjectId,
-      ref: this,
+      ref: 'User',
     },
   ],
 },
@@ -38,6 +38,6 @@ thoughtSchema.virtual('friendCount').get(function () {
   });
   
 // Uses mongoose.model() to create model
-const User = model('user', userSchema);
+const User = model('User', userSchema);
   
 module.exports = User;

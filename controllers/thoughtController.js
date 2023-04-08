@@ -1,12 +1,18 @@
-const { Thought, User, reactionSchema } = require('../models');
+//const { Thought, User, reactionSchema } = require('../models');
+const { Thought } = require('../models');
+
 
 module.exports = {
-  // Get all courses
-  getCourses(req, res) {
-    Course.find()
-      .then((courses) => res.json(courses))
+  // Get all thoughts
+  getThoughts(req, res) {
+    Thought.find()
+      .then((thoughts) => res.json(thoughts))
       .catch((err) => res.status(500).json(err));
   },
+
+}
+
+/*
   // Get a course
   getSingleCourse(req, res) {
     Course.findOne({ _id: req.params.courseId })
@@ -53,3 +59,4 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
 };
+*/
