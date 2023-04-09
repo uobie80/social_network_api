@@ -1,5 +1,5 @@
 const connection = require('../config/connection');
-const { User, Thought, Reaction } = require('../models');
+const { User, Thought } = require('../models');
 
 //Define user and thoughts data
 const usernamesList = [
@@ -71,22 +71,19 @@ connection.once('open', async () => {
       thoughts: [],
       friends: [],
     }
-    userObjs.push(user);
+    userObjs.push(user);   
   }
 
-  
  await User.collection.insertMany(userObjs);
-
 
 const reactionObjs = [];
 
-for (let i = 0; i < reactionsList.length; i++) {
+ for (let i = 0; i < reactionsList.length; i++) {
 
-  let reaction = {
-    reactionBody: reactionsList[i],
-    username: usernamesList[i],
- 
-  }
+         let reaction = {
+              reactionBody: reactionsList[i],
+              username: usernamesList[i],
+           } 
 
   reactionObjs.push(reaction);
 }
@@ -96,13 +93,18 @@ const thoughtObjs = [];
 
 for (let i = 0; i < thoughtsList.length; i++) {
 
+  let item = reactionObjs[i];
+  let index = reactionObjs.indexOf(item);
+  reactionObjs.splice(index, 1);
+     
   let thought = {
     ThoughtText: thoughtsList[i],
     username: usernamesList[i],
     reactions: [...reactionObjs],
   }
 
-  thoughtObjs.push(thought);
+   thoughtObjs.push(thought);
+   reactionObjs.splice(index, 0, item);
 }
 
   
@@ -111,6 +113,6 @@ for (let i = 0; i < thoughtsList.length; i++) {
  
   console.table(userObjs);
   console.table(thoughtObjs);
-  console.info('Seeding complete! 🌱');
+  console.info('Seeding complete!');
   process.exit(0);
 });
