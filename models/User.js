@@ -2,7 +2,7 @@ const {Schema, model} = require('mongoose');
 
 const reEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
 
-const userSchema = new mongoose.Schema(
+const userSchema = new Schema(
 {
   username: { type: String, required: true, unique: true, trim: true },
   email: { type: String, required: true, unique: true, match: reEmail }, 
@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema(
 
 
 // Create a virtual property `reactionCount` that retrieves the length of the thought's reactions array field on query.
-thoughtSchema.virtual('friendCount').get(function () {
+userSchema.virtual('friendCount').get(function () {
     return this.friends.length;
   });
   

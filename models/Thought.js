@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-
+const reactionSchema = require('./Reaction');
 
 // The librarySchema defines the schema of the parent document
 const thoughtSchema = new Schema(

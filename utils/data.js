@@ -1,82 +1,37 @@
-const names = [
-  'Aaran',
-  'Aaren',
-  'Aarez',
-  'Aarman',
-  'Aaron',
-  'Aaron-James',
-  'Aarron',
-  'Aaryan',
-  'Aaryn',
-  'Aayan',
-  'Aazaan',
-  'Abaan',
-  'Abbas',
-  'Abdallah',
-  'Abdalroof',
-  'Abdihakim',
-  'Abdirahman',
-  'Abdisalam',
-  'Abdul',
-  'Abdul-Aziz',
-  'Abdulbasir',
-  'Abdulkadir',
-  'Abdulkarem',
-  'Ze',
-  'Zechariah',
-  'Zeek',
-  'Zeeshan',
-  'Zeid',
-  'Zein',
-  'Zen',
-  'Zendel',
-  'Zenith',
-  'Zennon',
-  'Zeph',
-  'Zerah',
-  'Zhen',
-  'Zhi',
-  'Zhong',
-  'Zhuo',
-  'Zi',
-  'Zidane',
-  'Zijie',
-  'Zinedine',
-  'Zion',
-  'Zishan',
-  'Ziya',
-  'Ziyaan',
-  'Zohaib',
-  'Zohair',
-  'Zoubaeir',
-  'Zubair',
-  'Zubayr',
-  'Zuriel',
-  ``,
+const usernames = [
+  'testuser01',
+  'testuser02',
+  'testuser03',
+  'testuser04',
+  'testuser05',
+  'testuser06',
 ];
 
-const descriptionsBodies = [
-  'How to disagree with someone',
-  'iPhone review',
-  'how-to video',
-  'video essay on the history of video games',
-  'How to make money on the App Store',
-  'Learn NextJS in five minutes (Not clickbate)',
-  'Movie trailer',
-  'Hello world',
-  'Another possible solution to the algorithm',
-  'Apology video',
-  'Submission for startup pitch',
+const thoughts = [
+  'How to create a use case document',
+  `Why I believe Acura's are sportier vehicles than Lexus`,
+  'Best exercises to build a thicker forearm',
+  'Benefits of eating red grapes',
+  'Benefits of dring coffee',
+  'Why sprinting is better than steady state cardio',
 ];
 
-const possibleResponses = [
-  'I disagree!',
-  'I tried your algorithm, here were the results',
-  'This was awesome',
+const reactions = [
+  'I absolutely agree!',
+  'I absolutely disagree!',
+  'This is fantastic information',
   'Thank you for the great content',
-  'Please check out my video response',
-  'Like and subscribe to my channel please',
-  'Reply: The side effects of in app purchases on digital marketplaces',
+  'Thanks this was very informative',
+  `I'm motivated to start sprinting now`,
+];
+
+const emails = [
+  'testuser01@gmail.com',
+  'testuser02@gmail.com',
+  'testuser03@gmail.com',
+  'testuser04@gmail.com',
+  'testuser05@gmail.com',
+  'testuser06@gmail.com',
 ];
 
 const users = [];
@@ -84,34 +39,34 @@ const users = [];
 // Get a random item given an array
 const getRandomArrItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
-// Gets a random full name
-const getRandomName = () =>
-  `${getRandomArrItem(names)} ${getRandomArrItem(names)}`;
+// Gets a random username
+const getRandomUsername = () =>
+  `${getRandomArrItem(usernames)}`;
 
-// Function to generate random videos that we can add to the database. Includes video responses.
-const getRandomVideos = (int) => {
+// Function to generate random Thoughts that we can add to the database. Includes reactions.
+const getRandomThoughts = (int) => {
   let results = [];
   for (let i = 0; i < int; i++) {
     results.push({
-      published: Math.random() < 0.5,
+      ThoughtText: getRandomArrItem(thoughts),
       description: getRandomArrItem(descriptionsBodies),
       advertiserFriendly: Math.random() < 0.5,
-      responses: [...getVideoResponses(3)],
+      responses: [...getReactions(3)],
     });
   }
   return results;
 };
 
 // Create the responses that will be added to each video
-const getVideoResponses = (int) => {
+const getReactions = (int) => {
   if (int === 1) {
-    return getRandomArrItem(possibleResponses);
+    return getRandomArrItem(reactions);
   }
   let results = [];
   for (let i = 0; i < int; i++) {
     results.push({
-      responseBody: getRandomArrItem(possibleResponses),
-      username: getRandomName(),
+      responseBody: getRandomArrItem(reactions),
+      username: getRandomUsername(),
     });
   }
   return results;
