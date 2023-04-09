@@ -62,19 +62,7 @@ connection.once('open', async () => {
   await Thought.deleteMany({});
   await User.deleteMany({});
 
-  const userObjs = [];
 
-  for (let i = 0; i < usernamesList.length; i++) {
-    let user = {
-      username: usernamesList[i],
-      email: emailsList[i],
-      thoughts: [],
-      friends: [],
-    }
-    userObjs.push(user);   
-  }
-
- await User.collection.insertMany(userObjs);
 
 const reactionObjs = [];
 
@@ -108,7 +96,53 @@ for (let i = 0; i < thoughtsList.length; i++) {
 }
 
   
- await Thought.collection.insertMany(thoughtObjs);
+ const thoughts = await Thought.collection.insertMany(thoughtObjs);
+
+
+   const userObjs = [];
+   const thoughtObjectIds = thoughts.insertedIds;
+   const thoughtsIdList = [];
+
+   for (const[key, value] of Object.entries(thoughtObjectIds)){
+     thoughtsIdList.push(String(value));
+   }
+
+  for (let i = 0; i < usernamesList.length; i++) {
+
+    let user = {
+      username: usernamesList[i],
+      email: emailsList[i],
+      thoughts: [thoughtsIdList[i]],
+      friends: [],
+    }
+    userObjs.push(user);   
+  }
+
+const users = await User.collection.insertMany(userObjs);
+const userObjectIds =  users.insertedIds;
+const usersIdList = [];
+
+  for (const[key, value] of Object.entries(userObjectIds)){
+     usersIdList.push(String(value));
+   }
+
+for (let i = 0; i < usernamesList.length; i++) {
+  let usernameValue = usernamesList[i];
+  let userObjectID = usersIdList[i];
+  let index = usernamesList.indexOf(usernameValue);
+  usernamesList.splice(index, 1);
+  usersIdList.splice(index, 1);
+
+const filter = { username: usernameValue };
+const update = { friends: [...usersIdList]};
+
+
+await User.findOneAndUpdate(filter, update);
+
+   usernamesList.splice(index, 0, usernameValue );
+   usersIdList.splice(index, 0, userObjectID );
+}
+
 
  
   console.table(userObjs);

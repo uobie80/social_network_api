@@ -1,5 +1,5 @@
 const { ObjectId } = require('mongoose').Types;
-const { User } = require('../models');
+const { User, Thought } = require('../models');
 
 
 
@@ -42,26 +42,38 @@ module.exports = {
       .then((user) => res.json(user))
       .catch((err) => res.status(500).json(err));
   },
-}
-/*
-  // Delete a student and remove them from the course
-  deleteStudent(req, res) {
-    Student.findOneAndRemove({ _id: req.params.studentId })
-      .then((student) =>
-        !student
-          ? res.status(404).json({ message: 'No such student exists' })
-          : Course.findOneAndUpdate(
-              { students: req.params.studentId },
-              { $pull: { students: req.params.studentId } },
-              { new: true }
+
+    // update a user
+  async updateUser(req, res) {
+
+   const filter = { _id: req.params.userId };
+   const update = req.body;
+   
+   try {
+   const doc = await User.findOneAndUpdate(filter, update, {new: true });
+    res.json(doc);
+   } catch(e) {
+     res.status(500).json(e);
+   }
+      
+  },
+
+  // Delete a user and remove associated thoughts
+  deleteUser(req, res) {
+    User.findOneAndRemove({ _id: req.params.userId })
+      .then((user) =>
+        !user
+          ? res.status(404).json({ message: 'No such user exists' })
+          : Thought.findOneAndRemove(
+              req.body
             )
       )
-      .then((course) =>
-        !course
+      .then((thought) =>
+        !thought
           ? res.status(404).json({
-              message: 'Student deleted, but no courses found',
+              message: 'user deleted, but no thougts for the user was found',
             })
-          : res.json({ message: 'Student successfully deleted' })
+          : res.json({ message: 'User thought successfully deleted' })
       )
       .catch((err) => {
         console.log(err);
@@ -69,6 +81,10 @@ module.exports = {
       });
   },
 
+
+}
+/*
+  
   // Add an assignment to a student
   addAssignment(req, res) {
     console.log('You are adding an assignment');
