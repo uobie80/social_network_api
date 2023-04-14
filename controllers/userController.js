@@ -83,7 +83,7 @@ module.exports = {
 
     async addFriend(req, res) {
 
-   const filter = { _id: req.body };
+   const filter = { _id: req.params.userId };
    const update = { $push: {friends: req.params.friendId}  };
    
    try {
@@ -98,7 +98,7 @@ module.exports = {
 
     async deleteFriend(req, res) {
 
-   const filter = { _id: req.body };
+   const filter = { _id: req.params.userId };
    const update = { $pull: {friends: req.params.friendId  } };
    
    try {

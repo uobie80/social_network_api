@@ -86,7 +86,7 @@ for (let i = 0; i < thoughtsList.length; i++) {
   reactionObjs.splice(index, 1);
      
   let thought = {
-    ThoughtText: thoughtsList[i],
+    thoughtText: thoughtsList[i],
     username: usernamesList[i],
     reactions: [...reactionObjs],
   }
